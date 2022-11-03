@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component} from 'react';
 import UserList from './components/user-list/userList.component';
 import SearchBar from './components/search-bar/searchBar.component'
 import './App.css';
@@ -50,21 +50,8 @@ class App extends Component {
 
     return (
       <div className="App">
-        {/* <input 
-          className="search-box" 
-          type='search' 
-          placeholder="Search by name"
-          onChange={onSearchChange}
-        /> */}
-        {/* {
-          filteredPersons.length > 0 ?
-            filteredPersons.map((person) => {
-              return <h1 key={person.id}>{person.name}</h1>
-            }) : <h1>Fetching user infos!</h1>
-        } */}
         <SearchBar onChangeHandler={onSearchChange} placeholder={'Search by name'} type={'search'} className={'search-box'}/>
         <UserList persons={filteredPersons}/>
-
       </div>
     );
   }
