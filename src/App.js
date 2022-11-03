@@ -1,61 +1,44 @@
-import { Component} from 'react';
+import { useState, useEffect} from 'react';
 import UserList from './components/user-list/userList.component';
 import SearchBar from './components/search-bar/searchBar.component'
 import './App.css';
 
-class App extends Component {
-  
-  constructor() {
-    super();
+const App = () => {
 
-    this.state = {
-      persons: [],
-      searchField: ''
-    }
+  const [searchField, setSearchField] = useState('');
+  const [persons, setPersons] = useState([]);
+  const [filteredPersons, setFilteredPersons] = useState(persons);
 
-    console.log('In constructor');
-  }
+  console.log('rendering');
 
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
-      .then((users) => this.setState(() => {
-        return {persons: users}
-      }, () => {
-        //console.log(this.state);
-      }));
-
-    console.log('In componentDidMount');
-  }
-
-  onSearchChange = (event) => {
+  const onSearchChange = (event) => {
     console.log(event.target.value);
     const searchString = event.target.value.toLocaleLowerCase()
-    
-    this.setState(() => {
-      return { searchField: searchString };
-    })
+
+    setSearchField(searchString);
   }
 
-  render() {
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => response.json())
+    .then((users) => setPersons(users))
+  }, []);
 
-    console.log('In rendering');
-
-    const {persons, searchField} = this.state;
-    const { onSearchChange } = this;
-
-    const filteredPersons = persons.filter((person) => {
+  useEffect(() => {
+    const newFilteredPersons = persons.filter((person) => {
+      console.log('filter runs');
       return person.name.toLocaleLowerCase().includes(searchField);
     });
+    setFilteredPersons(newFilteredPersons);
+    console.log('filter fired');
+  }, [searchField, persons]);
 
-    return (
-      <div className="App">
-        <SearchBar onChangeHandler={onSearchChange} placeholder={'Search by name'} type={'search'} className={'search-box'}/>
-        <UserList persons={filteredPersons}/>
-      </div>
-    );
-  }
-  
+  return (
+    <div className="App">
+      <SearchBar onChangeHandler={onSearchChange} placeholder={'Search by name'} type={'search'} className={'search-box'}/>
+      <UserList persons={filteredPersons}/>
+    </div>
+  );
 }
 
 export default App;
