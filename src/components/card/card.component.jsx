@@ -1,7 +1,13 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useNavigate } from "react-router-dom";
 
 const DataCard = ({ id, name, email }) => {
+  const navigate = useNavigate();
+  const showDetails = () => {
+    navigate(`/user/${id}`)
+  }
+
   return (
     <div key={id}>
       <Card style={{ width: '18rem' }}>
@@ -11,7 +17,7 @@ const DataCard = ({ id, name, email }) => {
           <Card.Text>
             {email}
           </Card.Text>
-          <Button variant="primary">Details</Button>
+          <Button variant="primary" onClick={showDetails}>Details</Button>
         </Card.Body>
       </Card>
     </div>

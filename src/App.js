@@ -1,44 +1,35 @@
-import { useState, useEffect} from 'react';
-import UserList from './components/user-list/userList.component';
-import SearchBar from './components/search-bar/searchBar.component'
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/navbar/navbar.component'
+import Dashboard from './components/dashboard/dashboard.component';
+import Home from './components/Home/home.component';
+import Error from './components/error/error.component';
+import UserProfile from './components/user-profile/userprofile.component';
 import './App.css';
 
 const App = () => {
-
-  const [searchField, setSearchField] = useState('');
-  const [persons, setPersons] = useState([]);
-  const [filteredPersons, setFilteredPersons] = useState(persons);
-
-  console.log('rendering');
-
-  const onSearchChange = (event) => {
-    console.log(event.target.value);
-    const searchString = event.target.value.toLocaleLowerCase()
-
-    setSearchField(searchString);
-  }
-
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => response.json())
-    .then((users) => setPersons(users))
-  }, []);
-
-  useEffect(() => {
-    const newFilteredPersons = persons.filter((person) => {
-      console.log('filter runs');
-      return person.name.toLocaleLowerCase().includes(searchField);
-    });
-    setFilteredPersons(newFilteredPersons);
-    console.log('filter fired');
-  }, [searchField, persons]);
-
   return (
-    <div className="App">
-      <SearchBar onChangeHandler={onSearchChange} placeholder={'Search by name'} type={'search'} className={'search-box'}/>
-      <UserList persons={filteredPersons}/>
-    </div>
+    <>
+      <Header />
+      {/* <Dashboard /> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="user/:id" element={<UserProfile />} />
+        <Route path="/*" element={<Error />} />
+      </Routes>
+    </>
   );
 }
 
 export default App;
+
+{/* <Routes>
+<Route path="/" element={<Dashboard />}>
+  <Route
+    path="messages"
+    element={}
+  />
+  <Route path="tasks" element={} />
+</Route>
+<Route path="about" element={} />
+</Routes> */}
