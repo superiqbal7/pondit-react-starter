@@ -1,10 +1,8 @@
-import { Component } from 'react';
 import DataCard from '../card/card.component';
-class UserList extends Component {
-  render() {
-    const {persons} = this.props;
-    return (
-      <div>
+
+const UserList = ({persons}) => {
+  return(
+    <div>
         {
           persons.length > 0 ?
             persons.map((person) => {
@@ -12,9 +10,8 @@ class UserList extends Component {
               // <h1 key={person.id}>{person.name}</h1>
             }) : <h1>Fetching user infos!</h1>
         }
-      </div>
-    )
-  }
+    </div>
+  )
 }
 
 
