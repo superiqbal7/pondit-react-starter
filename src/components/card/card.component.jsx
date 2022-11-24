@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 const DataCard = ({ id, name, email }) => {
   const navigate = useNavigate();
   const showDetails = () => {
-    navigate(`/user/${id}`)
+    navigate(`/users/${id}`, {state: {
+      id, name, email
+    }});
   }
 
   return (

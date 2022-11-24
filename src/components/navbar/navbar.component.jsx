@@ -9,8 +9,8 @@ const Header = () => {
         <Container>
           <Navbar.Brand>Pondits</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to={'/'}>Home</Nav.Link>
-            <Nav.Link as={Link} to={'dashboard'}>Dashboard</Nav.Link>
+            <Nav.Link as={Link} to={'/'}>Dashboard</Nav.Link>
+            <Nav.Link as={Link} to={'users'}>Users</Nav.Link>
             <Nav.Link as={Link} to={'error'}>Error</Nav.Link>
           </Nav>
         </Container>

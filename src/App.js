@@ -1,21 +1,29 @@
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/navbar/navbar.component'
 import Dashboard from './components/dashboard/dashboard.component';
-import Home from './components/Home/home.component';
 import Error from './components/error/error.component';
 import UserProfile from './components/user-profile/userprofile.component';
+import PrivateRoute from './core/components/privateRoute.component';
+import PrivateOutlet from './core/components/privateOutlet.component';
+import AuthComponent from './components/Auth/auth.component';
+import Register from './components/Auth/register.component';
 import './App.css';
 
 const App = () => {
   return (
     <>
       <Header />
-      {/* <Dashboard /> */}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="user/:id" element={<UserProfile />} />
-        <Route path="/*" element={<Error />} />
+        <Route path="/" element={<AuthComponent />} />
+        <Route path="/login" element={<AuthComponent />} />
+        <Route path="/register" element={<Register />} />
+        {/* <Route path="/users" element={<PrivateRoute> <Dashboard /> </PrivateRoute> } />
+        <Route path="users/:id" element={<PrivateRoute> <UserProfile /> </PrivateRoute>}/> */}
+        <Route path="/*" element={<PrivateOutlet />}>
+          <Route path="users/" element={<Dashboard />}/>
+          <Route path="users/:id" element={<UserProfile />}/>
+        </Route>
+        {/* <Route path="/*" element={<Error />} /> */}
       </Routes>
     </>
   );
